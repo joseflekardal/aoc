@@ -1,2 +1,2 @@
-# aoc
-advent of code solutions
+# aoc 🎅🏼
+advent of code solutions 🕯🕯🕯🕯
