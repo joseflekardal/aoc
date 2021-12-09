@@ -1,3 +1,4 @@
+const input = process.argv[2];
 const map = input.split("\n").map((row) => row.split(""));
 const lowPoints = [];
 
@@ -21,28 +22,28 @@ for (let y = 0; y < map.length; y++) {
 }
 
 const MAX_HEIGHT = 9;
-const basins = lowPoints.map((cur) => {
+const basins = lowPoints.map((lowPoint) => {
   let basinCount = 0;
   const memo = new Set();
 
-  const positionsToCheck = [cur];
+  const positionsToCheck = [lowPoint];
   while (positionsToCheck.length) {
-    const curPos = positionsToCheck.shift();
+    const { x, y } = positionsToCheck.shift();
 
-    const memoKey = Object.values(curPos).join(":");
+    const memoKey = x + ":" + y;
     if (memo.has(memoKey)) continue;
     memo.add(memoKey);
 
-    const curHeight = map[curPos.y]?.[curPos.x];
+    const curHeight = map[y]?.[x];
     if (!curHeight || Number(curHeight) >= MAX_HEIGHT) continue;
 
     basinCount++;
 
     positionsToCheck.push(
-      { ...curPos, y: curPos.y - 1 },
-      { ...curPos, y: curPos.y + 1 },
-      { ...curPos, x: curPos.x - 1 },
-      { ...curPos, x: curPos.x + 1 }
+      { x, y: y - 1 },
+      { x, y: y + 1 },
+      { y, x: x - 1 },
+      { y, x: x + 1 }
     );
   }
 
