@@ -4,21 +4,21 @@ forward 8
 up 3
 down 8
 forward 2`
-  .split("\n")
+  .split('\n')
   .reduce(
     (acc, cur) => {
-      const [dir, distance] = cur.split(" ");
-      if (dir === "forward") {
-        acc.x += Number(distance);
-      } else if (dir === "down") {
-        acc.y += Number(distance);
+      const [dir, distance] = cur.split(' ')
+      if (dir === 'forward') {
+        acc.x += Number(distance)
+      } else if (dir === 'down') {
+        acc.y += Number(distance)
       } else {
-        acc.y -= Number(distance);
+        acc.y -= Number(distance)
       }
 
-      return acc;
+      return acc
     },
     { x: 0, y: 0 }
-  );
+  )
 
-console.log(pos.y * pos.x);
+console.log(pos.y * pos.x)

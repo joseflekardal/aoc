@@ -1,7 +1,7 @@
-function dayOnePartTwo (input) {
-  let requiredFuel = x => Math.floor(x / 3 - 2)
+function dayOnePartTwo(input) {
+  let requiredFuel = (x) => Math.floor(x / 3 - 2)
 
-  function recursiveRequiredFuel (mass) {
+  function recursiveRequiredFuel(mass) {
     let localMass = requiredFuel(mass)
     let localMasses = [localMass]
 
@@ -16,6 +16,4 @@ function dayOnePartTwo (input) {
   return input.reduce((total, fuel) => total + recursiveRequiredFuel(fuel), 0)
 }
 
-console.log(
-  dayOnePartTwo(require('./day1.json'))
-)
+console.log(dayOnePartTwo(require('./day1.json')))
