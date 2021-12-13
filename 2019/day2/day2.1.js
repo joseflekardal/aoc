@@ -1,8 +1,8 @@
-const numbers = require('./day2.json')
+const numbers = process.argv[2].split(',').map(Number)
 
-function opCode (noun, verb) {
+function opCode(noun, verb) {
   numbers[1] = noun
-  numbers[2] verb
+  numbers[2] = verb
 
   for (let i = 0; i < numbers.length; i += 4) {
     const [operand, first, second, dest] = numbers.slice(i, i + 4)
@@ -12,11 +12,11 @@ function opCode (noun, verb) {
       numbers[dest] = operands[operand](numbers[first], numbers[second])
     }
   }
-  
+
   return numbers
 }
 
-for (let noun = 0; noun < 99;  noun++) {
+for (let noun = 0; noun < 99; noun++) {
   for (let verb = 0; verb < 99; verb++) {
     const [output] = opCode(noun, verb)
 

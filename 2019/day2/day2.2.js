@@ -1,5 +1,5 @@
 function opCode(noun, verb) {
-  const input = require('./day2.json')
+  const input = process.argv[2].split('\n').map(Number)
 
   input[1] = noun
   input[2] = verb

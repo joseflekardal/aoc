@@ -1,3 +1,5 @@
+const input = process.argv[2].split('\n').map(Number)
+
 function dayOnePartTwo(input) {
   let requiredFuel = (x) => Math.floor(x / 3 - 2)
 
@@ -16,4 +18,4 @@ function dayOnePartTwo(input) {
   return input.reduce((total, fuel) => total + recursiveRequiredFuel(fuel), 0)
 }
 
-console.log(dayOnePartTwo(require('./day1.json')))
+console.log(dayOnePartTwo(input))
