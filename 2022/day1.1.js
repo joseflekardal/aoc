@@ -1,17 +1,17 @@
 function solvePuzzle(input) {
 	const rows = input.split('\n')
 
-	let elfTotalKcal = 0
+	let elfKcal = 0
 	let greatestKcalTotal = 0
 
 	for (const row of rows) {
 		const kcal = Number(row)
 
 		if (kcal) {
-			elfTotalKcal += kcal
+			elfKcal += kcal
 		} else {
-			greatestKcalTotal = Math.max(elfTotalKcal, greatestKcalTotal)
-			elfTotalKcal = 0
+			greatestKcalTotal = Math.max(elfKcal, greatestKcalTotal)
+			elfKcal = 0
 		}
 	}
 
