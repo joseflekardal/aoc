@@ -7,9 +7,7 @@ function solvePuzzle(input) {
 			rawSection => rawSection.split('-').map(Number)
 		)
 
-		if (b[0] >= a[0] && b[1] <= a[1]) {
-			state++
-		} else if (a[0] >= b[0] && a[1] <= b[1]) {
+		if (b[0] >= a[0] && b[1] <= a[1] || a[0] >= b[0] && a[1] <= b[1]) {
 			state++
 		}
 
