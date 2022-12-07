@@ -1,48 +1,39 @@
 function solvePuzzle(input) {
 	const [rawStacks, craneInstructions] = input.split('\n\n')
-
-	const stacks = rawStacks
+	const [head, ...tail] = rawStacks
 		.split('\n')
 		.reverse()
-		.reduce((acc, cur, i) => {
-			if (i === 0) {
-				const stuff = cur.match(/(\d)/g)
-				stuff.forEach(x => {
-					acc[x] = []
-				})
-			} else {
-				[cur[1], cur[5], cur[9], cur[13], cur[17], cur[21], cur[25], cur[29], cur[33]]
-					.forEach((char, i) => {
-						if (char.trim()) {
-							acc[i + 1].push(char)
-						}
-					})
+
+	const stacks = []
+	for (const [index, stackName] of Object.entries(head)) {
+		if (stackName.trim()) {
+			stacks[stackName] = []
+
+			for (const row of tail) {
+				if (row[index].trim()) {
+					stacks[stackName].push(row[index])
+				}
 			}
-
-			return acc
-		}, {})
-
-	for (const craneInstruction of craneInstructions.split('\n')) {
-		const result = craneInstruction.match(/(\d+)/g)
-		if (!result) {
-			continue
 		}
+	}
 
-		const [count, origin, destination] = result
+	for (const craneInstruction of craneInstructions.trim().split('\n')) {
+		const [count, origin, destination] = craneInstruction.match(/(\d+)/g)
+
 		const crateCount = parseInt(count)
 
 		const mover = stacks[origin].splice(stacks[origin].length - crateCount, crateCount)
 
 		stacks[destination].push(...mover)
-		console.table(stacks)
 	}
 
-	const topCrateString = Object.values(stacks).reduce((acc, char) => acc + char.at(-1), '')
+	const topCrateString = Object
+		.values(stacks)
+		.reduce((acc, char) => acc + char.at(-1), '')
 
 	return topCrateString
 }
 
-
-const input = document.querySelector('pre code').innerText
+const input = document.querySelector('pre').innerText
 const result = solvePuzzle(input)
 console.log(result)
