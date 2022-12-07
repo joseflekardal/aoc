@@ -14,7 +14,6 @@ function solvePuzzle(input) {
 				[cur[1], cur[5], cur[9], cur[13], cur[17], cur[21], cur[25], cur[29], cur[33]]
 					.forEach((char, i) => {
 						if (char.trim()) {
-							console.log(char)
 							acc[i + 1].push(char)
 						}
 					})
