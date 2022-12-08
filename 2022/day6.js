@@ -18,8 +18,10 @@ function solvePuzzle(input, sequenceLength = 4) {
 			break
 		}
 	}
+
+	return result
 }
 
-const input = document.querySelector('pre')
+const input = document.querySelector('pre').innerText
 const result = solvePuzzle(input)
 console.log(result)
