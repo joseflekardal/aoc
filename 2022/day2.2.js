@@ -1,26 +1,29 @@
-function solvePuzzle(input) {
-	const K = { A: 0, B: 1, C: 2 }
-	const S = [1, 2, 3]
-	const GAME_KEY = {
-		X: [-1, 0],
-		Y: [0, 3],
-		Z: [1, 6],
+function solvePuzzle (input) {
+	const SCORES = [1, 2, 3]
+
+	const THEIR_SCORE_INDEX = { A: 0, B: 1, C: 2 }
+
+	const OUTCOME_KEY = {
+			X: [-1, 0],
+			Y: [0, 3],
+			Z: [1, 6],
 	}
 
-	let score = 0
+	let totalScore = 0
 
-	for (const row of input.split('\n')) {
-		const [them, me] = row.split(' ')
-
-		const themScore = S[K[them]]
-		const [direction, myPoints] = GAME_KEY[me]
-
-		score += myPoints + (S.at(K[them] + direction) || S.at(0))
+	for (const row of input.trim().split('\n')) {
+			const [theirMove, desiredOutcome] = row.split(' ')
+			const [myScoreOffset, outcomeScore] = OUTCOME_KEY[desiredOutcome]
+			const myScoreIndex = THEIR_SCORE_INDEX[theirMove] + myScoreOffset
+			const myMoveScore = SCORES.at(myScoreIndex) || SCORES.at(0)
+		
+			totalScore += outcomeScore + myMoveScore
 	}
-
-	return score
+	
+	return totalScore
 }
 
-const input = docuemnt.querySelector('pre').innerText
+const input = document.querySelector('pre').innerText
 const result = solvePuzzle(input)
+
 console.log(result)
