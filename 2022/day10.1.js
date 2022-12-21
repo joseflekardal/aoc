@@ -36,7 +36,6 @@ function solvePuzzle(input) {
 
 		const value = Number(row.split(' ')[1])
 		register += value
-
 	}
 
 	return signals.reduce((sum, strength) => sum + strength, 0)
