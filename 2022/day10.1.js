@@ -1,36 +1,48 @@
-const rows = $('pre:nth-of-type(2)').innerText.trim().split('\n')
+function solvePuzzle(input) {
+	let cycle = 0
+	let register = 1
+	
+	const signals = []
+	let multiplier = 20
+	
+	const rows = input.trim().split('\n')
 
-let cycle = 1
-let sum = 1
+	for (const row of rows) {
+		if ((cycle === 20 && !signals.length) || cycle === 40) {
+			signals.push(register * multiplier)
+			multiplier += 40
+			cycle = 0
+		}
 
-const values = []
-let multiplier = 20
-
-for (const row of rows) {
-	cycle++
-	if (row !== 'noop') {
 		cycle++
-		sum += Number(row.split(' ')[1])
+
+		if ((cycle === 20 && !signals.length) || cycle === 40) {
+			signals.push(register * multiplier)
+			multiplier += 40
+			cycle = 0
+		}
+
+		if (row === 'noop') {
+			continue
+		}
+
+		cycle++
+
+		if ((cycle === 20 && !signals.length) || cycle === 40) {
+			signals.push(register * multiplier)
+			multiplier += 40
+			cycle = 0
+		}
+
+		const value = Number(row.split(' ')[1])
+		register += value
+
 	}
 
-	if (cycle >= 20 && !values.length) {
-		values.push(sum * multiplier)
-		multiplier += 40
-		cycle = 1
-	}
-
-	console.log(row)
-
-	if (cycle >= 40) {
-		console.log(sum)
-		values.push(sum * multiplier)
-		multiplier += 40
-		cycle = 1
-	}
+	return signals.reduce((sum, strength) => sum + strength, 0)
 }
 
-console.log(values)
+const input = $('pre:nth-of-type(2)').innerText
+const result = solvePuzzle(input)
 
-console.log(
-	values.reduce((acc, cur) => acc + cur, 0)
-)
+console.log(result)
