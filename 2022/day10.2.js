@@ -1,43 +1,56 @@
-const rows = $('pre:nth-of-type(2)').innerText.trim().split('\n')
+function solvePuzzle(input) {
+	let cycle = 0
+	let pos = 1
+	let result = ''
 
-let cycle = 0
-let pos = 1
-let result = ''
+	const rows = input.trim().split('\n')
 
-for (const row of rows) {
-    const sprite = [pos - 1, pos, pos + 1]
+	for (const row of rows) {
+		const sprite = [pos - 1, pos, pos + 1]
 
-    if (sprite.some(p => p === cycle)) {
-        result += '#'        
-    } else {
-        result += '.'
-    }
+		if (sprite.some(p => p === cycle)) {
+			result += '#'
+		} else {
+			result += '.'
+		}
 
-    cycle++
-    
-    if (row === 'noop') {
-        continue
-    }
-    
-    if (sprite.some(p => p === cycle)) {
-        result += '#'        
-    } else {
-        result += '.'
-    }
+		cycle++
 
-    cycle++
-    
-    pos += Number(row.split(' ')[1])
+		if (cycle === 40) {
+			cycle = 0
+		}
 
-    console.log({ pos, cycle })
-    console.log(result)
+		if (row === 'noop') {
+			continue
+		}
+
+		if (sprite.some(p => p === cycle)) {
+			result += '#'
+		} else {
+			result += '.'
+		}
+
+		cycle++
+
+		if (cycle === 40) {
+			cycle = 0
+		}
+
+		pos += Number(row.split(' ')[1])
+	}
+
+	const chars = Array.from(result)
+	const pixelRows = []
+
+	while (chars.length >= 40) {
+		const row = chars.splice(0, 40).join('')
+		pixelRows.push(row)
+	}
+
+	return pixelRows.join('\n')
 }
 
-const x = Array.from(result)
-const y = []
+const input = $('pre').innerText
+const result = solvePuzzle(input)
 
-while (x.length >= 40) {
-    y.push(x.splice(0, 40).join(''))
-}
-
-console.log(y.join('\n'))
+console.log(result)
